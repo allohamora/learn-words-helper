@@ -6,11 +6,6 @@ import linaria from '@linaria/vite';
 export default defineConfig({
   plugins: [
     react(),
-    linaria({
-      include: ['**/*.{ts,tsx}'],
-      babelOptions: {
-        presets: ['@babel/preset-typescript', '@babel/preset-react'],
-      },
-    }),
+    linaria(),
   ],
 })
