@@ -1,10 +1,4 @@
 import { FC } from 'react';
-import { styled } from '@linaria/react';
+import { TableInput } from './components/table-input';
 
-const Title = styled.div`
-  color: black;
-`;
-
-export const App: FC = () => {
-  return <Title>App</Title>;
-};
+export const App: FC = () => <TableInput />;
