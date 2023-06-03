@@ -17,8 +17,8 @@
     "release:major": "standard-version --release-as major --tag-prefix=",
     "lint": "eslint \"**/*.{ts,tsx}\"",
     "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
-    "csslint": "stylelint \"src/**/*.{css,ts,tsx}\"",
-    "csslint:fix": "stylelint \"src/**/*.{css,ts,tsx}\" --fix"
+    "csslint": "stylelint \"src/**/*.css\"",
+    "csslint:fix": "stylelint \"src/**/*.css\" --fix"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -44,6 +44,11 @@
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "standard-version": "^9.5.0",
+    "stylelint": "^15.6.3",
+    "stylelint-config-rational-order-fix": "^0.1.9",
+    "stylelint-config-standard": "^33.0.0",
+    "stylelint-order": "^6.0.3",
+    "stylelint-prettier": "^3.0.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.9"
   },
@@ -53,8 +58,8 @@
     }
   },
   "lint-staged": {
+    "*.css": "stylelint --fix",
     "*.{js,json,yml,md}": "prettier --write",
-    "*.{css,ts,tsx}": "stylelint --fix",
     "*.{ts,tsx}": "eslint --fix"
   }
 }
