@@ -1,0 +1,51 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint/eslint-plugin", "beautiful-sort", "react-refresh"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:prettier/recommended"
+  ],
+  "root": true,
+  "env": {
+    "es6": true,
+    "browser": true,
+    "es2020": true,
+    "node": true
+  },
+  "ignorePatterns": [".eslintrc.js"],
+  "rules": {
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-floating-promises": "warn",
+    "@typescript-eslint/no-empty-interface": "warn",
+    "@typescript-eslint/ban-types": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/function-component-definition": "off",
+    "react/no-invalid-html-attribute": "warn",
+    "react/display-name": "warn",
+    "import/prefer-default-export": "off",
+    "react/require-default-props": "off",
+    "react/no-array-index-key": "warn",
+    "import/order": "off",
+    "beautiful-sort/import": [
+      "error",
+      {
+        "special": ["react"],
+        "order": ["special", "namespace", "default", "defaultObj", "obj", "none"]
+      }
+    ],
+    "react-refresh/only-export-components": "warn"
+  }
+}

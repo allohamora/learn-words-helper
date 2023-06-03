@@ -7,23 +7,54 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky install",
+    "format": "prettier . --check",
+    "format:fix": "prettier --write .",
+    "release": "standard-version --tag-prefix=",
+    "release:minor": "standard-version --release-as minor --tag-prefix=",
+    "release:patch": "standard-version --release-as patch --tag-prefix=",
+    "release:major": "standard-version --release-as major --tag-prefix=",
+    "lint": "eslint \"**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
+    "csslint": "stylelint \"src/**/*.{css,ts,tsx}\"",
+    "csslint:fix": "stylelint \"src/**/*.{css,ts,tsx}\" --fix"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.59.0",
-    "@typescript-eslint/parser": "^5.59.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
     "@vitejs/plugin-react": "^4.0.0",
-    "eslint": "^8.38.0",
+    "eslint": "^8.42.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-beautiful-sort": "^3.0.1",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.3.4",
+    "eslint-plugin-react-refresh": "^0.4.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "standard-version": "^9.5.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.9"
+  },
+  "standard-version": {
+    "skip": {
+      "tag": true
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,yml,md}": "prettier --write",
+    "*.{css,ts,tsx}": "stylelint --fix",
+    "*.{ts,tsx}": "eslint --fix"
   }
 }
