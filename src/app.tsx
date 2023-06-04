@@ -11,19 +11,19 @@ const enum AppStatus {
   STARTED = 'STARTED',
 }
 
-export const enum AppSort {
+const enum AppSort {
   Default = 'Default',
   Shuffle = 'Shuffle',
 }
 
-export const enum AppMode {
+const enum AppTarget {
   Words = 'Words',
   Translations = 'Translations',
 }
 
-const toCardItems = (wordList: WordListItem[], mode: AppMode): CardItem[] => {
+const toCardItems = (wordList: WordListItem[], target: AppTarget): CardItem[] => {
   return wordList.map(({ word, translation }) => {
-    if (mode === AppMode.Words) {
+    if (target === AppTarget.Words) {
       return { question: translation, answer: word };
     }
 
@@ -45,14 +45,14 @@ export const App: FC = () => {
   const [cardItems, setCardItems] = useState<CardItem[]>();
   const [status, setStatus] = useState(AppStatus.WAITING);
   const [sort, setSort] = useState(AppSort.Default);
-  const [mode, setMode] = useState(AppMode.Words);
+  const [target, setTarget] = useState(AppTarget.Words);
 
   const onFinish = () => {
     setStatus(AppStatus.WAITING);
   };
 
   const onStart = () => {
-    setCardItems(sortItems(toCardItems(wordList as WordListItem[], mode), sort));
+    setCardItems(sortItems(toCardItems(wordList as WordListItem[], target), sort));
     setStatus(AppStatus.STARTED);
   };
 
@@ -62,10 +62,10 @@ export const App: FC = () => {
     setSort(nextSort);
   };
 
-  const toggleMode = () => {
-    const nextMode = mode === AppMode.Words ? AppMode.Translations : AppMode.Words;
+  const toggleTarget = () => {
+    const nextTarget = target === AppTarget.Words ? AppTarget.Translations : AppTarget.Words;
 
-    setMode(nextMode);
+    setTarget(nextTarget);
   };
 
   return (
@@ -74,7 +74,7 @@ export const App: FC = () => {
         <TableInput table={table} setTable={setTable} setWordList={setWordList}>
           <ActionsWrapper>
             <Button onClick={toggleSort}>Sort: {sort.toLowerCase()}</Button>
-            <Button onClick={toggleMode}>Mode: {mode.toLowerCase()}</Button>
+            <Button onClick={toggleTarget}>Target: {target.toLowerCase()}</Button>
           </ActionsWrapper>
 
           <Button onClick={onStart} disabled={!wordList}>
