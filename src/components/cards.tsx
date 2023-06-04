@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { WordListItem } from './table-input';
 import { Title } from './title';
 import { Button } from './button';
 import { Input } from './input';
@@ -21,33 +20,38 @@ const SubmitWrapper = styled.div`
   margin-top: 10px;
 `;
 
+export type CardItem = {
+  question: string;
+  answer: string;
+};
+
 type Props = {
-  wordList: WordListItem[];
+  items: CardItem[];
   onFinish: () => void;
 };
 
 const MAX_WRONG_ANSWERS = 3;
 
-export const Cards: FC<Props> = ({ wordList, onFinish }) => {
+export const Cards: FC<Props> = ({ items, onFinish }) => {
   const [activeIdx, setActiveIdx] = useState<number>(0);
   const [wrongAnswers, setWrongAnswers] = useState<number>(0);
   const [answer, setAnswer] = useState<string>('');
 
-  const active = wordList[activeIdx] as WordListItem;
+  const active = items[activeIdx] as CardItem;
 
   const onSubmit = () => {
-    if (active.word !== answer) {
+    if (active.answer !== answer) {
       const newWrongAnswers = wrongAnswers + 1;
       setWrongAnswers(newWrongAnswers);
 
       if (newWrongAnswers >= MAX_WRONG_ANSWERS) {
-        return alert(`wrong answer, the right answer is "${active.word}"`);
+        return alert(`wrong answer, the right answer is "${active.answer}"`);
       }
 
       return alert(`wrong answer`);
     }
 
-    if (activeIdx + 1 >= wordList.length) {
+    if (activeIdx + 1 >= items.length) {
       return onFinish();
     }
 
@@ -58,9 +62,9 @@ export const Cards: FC<Props> = ({ wordList, onFinish }) => {
 
   return (
     <div>
-      <Title>Enter the translation of that:</Title>
+      <Title>Enter the answer of that:</Title>
       <div>
-        <Title as="h3">{active.translation}</Title>
+        <Title as="h3">{active.question}</Title>
         <Form
           onSubmit={(e) => {
             e.preventDefault();

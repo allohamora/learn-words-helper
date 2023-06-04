@@ -1,6 +1,5 @@
-import { FC, FormEvent } from 'react';
+import { FC, FormEvent, PropsWithChildren } from 'react';
 import { styled } from '@linaria/react';
-import { Button } from './button';
 import { Title } from './title';
 
 const TableHolderWrapper = styled.div`
@@ -47,7 +46,13 @@ const TableHolder = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+`;
+
+export const ActionsWrapper = styled.div`
+  button:not(:last-child) {
+    margin-right: 10px;
+  }
 `;
 
 export type WordListItem = {
@@ -83,13 +88,12 @@ const parseTable = (e: FormEvent<HTMLDivElement>) => {
 
 type Props = {
   setWordList: (value: WordListItem[] | null) => void;
-  startDisabled: boolean;
-  onStart: () => void;
+
   table?: string;
   setTable: (table: string) => void;
 };
 
-export const TableInput: FC<Props> = ({ setWordList, onStart, startDisabled, table, setTable }) => {
+export const TableInput: FC<PropsWithChildren<Props>> = ({ setWordList, table, setTable, children }) => {
   const props: {
     dangerouslySetInnerHTML?: { __html: string };
   } = {};
@@ -112,11 +116,7 @@ export const TableInput: FC<Props> = ({ setWordList, onStart, startDisabled, tab
             {...props}
           />
 
-          <ButtonWrapper>
-            <Button onClick={() => onStart()} disabled={startDisabled}>
-              Start
-            </Button>
-          </ButtonWrapper>
+          <ButtonWrapper>{children}</ButtonWrapper>
         </div>
       </TableHolderWrapper>
     </div>
