@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/allohamora/learn-words-helper/compare/1.1.0...1.2.0) (2023-06-04)
+
+### Features
+
+- add margin top to buttons ([afba1e0](https://github.com/allohamora/learn-words-helper/commit/afba1e08be8c224998ac064b7eeba3e8f479ee1b))
+- add styles for mobile devices ([4f8abe7](https://github.com/allohamora/learn-words-helper/commit/4f8abe7142ea78bff3915660d01dd74b57e41ed8))
+
 ## [1.1.0](https://github.com/allohamora/learn-words-helper/compare/1.0.0...1.1.0) (2023-06-04)
 
 ### Features
