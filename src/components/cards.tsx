@@ -71,7 +71,7 @@ export const Cards: FC<Props> = ({ items, onFinish }) => {
       <Title>Enter the answer:</Title>
       <div>
         <Title data-tooltip-id="question" data-tooltip-content={`"${active.answers.join('" or "')}"`} as="h3">
-          {active.question}
+          {active.question} [{activeIdx + 1}/{items.length}]
         </Title>
         <Tooltip id="question" />
 
