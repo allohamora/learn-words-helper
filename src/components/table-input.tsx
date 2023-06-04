@@ -126,7 +126,7 @@ type Props = {
 export const TableInput: FC<PropsWithChildren<Props>> = ({ setWordList, table, setTable, children }) => {
   return (
     <div>
-      <Title>Enter your table here:</Title>
+      <Title>Paste your table:</Title>
       <TableHolderWrapper>
         <FormWrapper>
           <TableHolder

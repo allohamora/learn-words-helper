@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/allohamora/learn-words-helper/compare/1.3.0...1.4.0) (2023-06-04)
+
+### Features
+
+- add config store ([cb5f80c](https://github.com/allohamora/learn-words-helper/commit/cb5f80cce688bb7bdf307ee3aff2067304a405ed))
+- add vite-pwa-plugin ([983a68c](https://github.com/allohamora/learn-words-helper/commit/983a68ce64b6e6ee9daf571449f5d9d75121cee1))
+- fill manifest ([c58e279](https://github.com/allohamora/learn-words-helper/commit/c58e27956db171ac64ea1fc420a5eb9fd819406a))
+- improve text ([809aa12](https://github.com/allohamora/learn-words-helper/commit/809aa12259f60823085e033b432e4cfaabf1d00f))
+
 ## [1.3.0](https://github.com/allohamora/learn-words-helper/compare/1.2.0...1.3.0) (2023-06-04)
 
 ### Features

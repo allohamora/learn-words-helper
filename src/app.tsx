@@ -4,26 +4,14 @@ import { Container } from './components/container';
 import { CardItem, Cards } from './components/cards';
 import { Button } from './components/button';
 import { shuffle } from './utils/shuffle';
+import { useStore } from '@nanostores/react';
+import { AppMode, AppSort, AppTarget, configStore } from './stores/config.store';
+import { tableStore } from './stores/table.store';
 import './global.css';
 
 const enum AppStatus {
   WAITING = 'WAITING',
   STARTED = 'STARTED',
-}
-
-const enum AppSort {
-  Default = 'Default',
-  Shuffle = 'Shuffle',
-}
-
-const enum AppTarget {
-  Words = 'Words',
-  Translations = 'Translations',
-}
-
-const enum AppMode {
-  One = 'One',
-  All = 'All',
 }
 
 const filteredByTarget = ({ word, translation }: WordListItem, target: AppTarget) => {
@@ -55,40 +43,45 @@ const sortItems = (items: CardItem[], sort: AppSort) => {
 };
 
 export const App: FC = () => {
-  const [table, setTable] = useState<string>('');
-  const [wordList, setWordList] = useState<WordListItem[] | null>(null);
-  const [cardItems, setCardItems] = useState<CardItem[]>();
   const [status, setStatus] = useState(AppStatus.WAITING);
+  const [cardItems, setCardItems] = useState<CardItem[]>();
 
-  const [sort, setSort] = useState(AppSort.Default);
-  const [target, setTarget] = useState(AppTarget.Words);
-  const [mode, setMode] = useState(AppMode.One);
+  const config = useStore(configStore);
+  const table = useStore(tableStore);
 
   const onFinish = () => {
     setStatus(AppStatus.WAITING);
   };
 
   const onStart = () => {
-    setCardItems(sortItems(toCardItems(wordList as WordListItem[], target, mode), sort));
+    setCardItems(sortItems(toCardItems(config.wordList as WordListItem[], config.target, config.mode), config.sort));
     setStatus(AppStatus.STARTED);
   };
 
   const toggleSort = () => {
-    const nextSort = sort === AppSort.Default ? AppSort.Shuffle : AppSort.Default;
+    const nextSort = config.sort === AppSort.Default ? AppSort.Shuffle : AppSort.Default;
 
-    setSort(nextSort);
+    configStore.setKey('sort', nextSort);
   };
 
   const toggleTarget = () => {
-    const nextTarget = target === AppTarget.Words ? AppTarget.Translations : AppTarget.Words;
+    const nextTarget = config.target === AppTarget.Words ? AppTarget.Translations : AppTarget.Words;
 
-    setTarget(nextTarget);
+    configStore.setKey('target', nextTarget);
   };
 
   const toggleMode = () => {
-    const nextMode = mode === AppMode.All ? AppMode.One : AppMode.All;
+    const nextMode = config.mode === AppMode.All ? AppMode.One : AppMode.All;
 
-    setMode(nextMode);
+    configStore.setKey('mode', nextMode);
+  };
+
+  const setTable = (newTable: string) => {
+    tableStore.set(newTable);
+  };
+
+  const setWordList = (wordList: WordListItem[] | null) => {
+    configStore.setKey('wordList', wordList);
   };
 
   return (
@@ -96,10 +89,10 @@ export const App: FC = () => {
       {status === AppStatus.WAITING && (
         <TableInput table={table} setTable={setTable} setWordList={setWordList}>
           <ButtonsWrapper>
-            <Button onClick={toggleSort}>Sort: {sort.toLowerCase()}</Button>
-            <Button onClick={toggleTarget}>Target: {target.toLowerCase()}</Button>
-            <Button onClick={toggleMode}>Mode: {mode.toLowerCase()}</Button>
-            <Button onClick={onStart} disabled={!wordList}>
+            <Button onClick={toggleSort}>Sort: {config.sort.toLowerCase()}</Button>
+            <Button onClick={toggleTarget}>Target: {config.target.toLowerCase()}</Button>
+            <Button onClick={toggleMode}>Mode: {config.mode.toLowerCase()}</Button>
+            <Button onClick={onStart} disabled={!config.wordList}>
               Start
             </Button>
           </ButtonsWrapper>
