@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { TableInput, ActionsWrapper, WordListItem } from './components/table-input';
+import { TableInput, ButtonsWrapper, WordListItem } from './components/table-input';
 import { Container } from './components/container';
 import { CardItem, Cards } from './components/cards';
 import { Button } from './components/button';
@@ -95,15 +95,14 @@ export const App: FC = () => {
     <Container as="main">
       {status === AppStatus.WAITING && (
         <TableInput table={table} setTable={setTable} setWordList={setWordList}>
-          <ActionsWrapper>
+          <ButtonsWrapper>
             <Button onClick={toggleSort}>Sort: {sort.toLowerCase()}</Button>
             <Button onClick={toggleTarget}>Target: {target.toLowerCase()}</Button>
             <Button onClick={toggleMode}>Mode: {mode.toLowerCase()}</Button>
-          </ActionsWrapper>
-
-          <Button onClick={onStart} disabled={!wordList}>
-            Start
-          </Button>
+            <Button onClick={onStart} disabled={!wordList}>
+              Start
+            </Button>
+          </ButtonsWrapper>
         </TableInput>
       )}
       {status === AppStatus.STARTED && <Cards items={cardItems as CardItem[]} onFinish={onFinish} />}

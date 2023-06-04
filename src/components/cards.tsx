@@ -13,6 +13,10 @@ const Form = styled.form`
     display: inline-block;
     width: 100%;
   }
+
+  @media (width <= 600px) {
+    width: 100%;
+  }
 `;
 
 const SubmitWrapper = styled.div`

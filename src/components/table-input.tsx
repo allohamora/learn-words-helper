@@ -7,6 +7,12 @@ const TableHolderWrapper = styled.div`
   justify-content: center;
 `;
 
+const FormWrapper = styled.div`
+  @media (width <= 500px) {
+    width: 100%;
+  }
+`;
+
 const TableHolder = styled.div`
   overflow: auto;
   display: inline-block;
@@ -16,6 +22,7 @@ const TableHolder = styled.div`
   padding: 10px;
 
   color: var(--input-text-color);
+  white-space: normal !important;
 
   background-color: var(--input-background);
   border: 2px solid var(--border-color);
@@ -42,16 +49,22 @@ const TableHolder = styled.div`
   &:focus {
     outline: none;
   }
+
+  @media (width <= 500px) {
+    width: 100%;
+    min-width: 100%;
+    min-height: 400px;
+  }
 `;
 
-const ButtonWrapper = styled.div`
+export const ButtonsWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-`;
 
-export const ActionsWrapper = styled.div`
-  button:not(:last-child) {
-    margin-right: 10px;
+  button {
+    width: 45%;
+    margin-bottom: 10px;
   }
 `;
 
@@ -122,7 +135,7 @@ export const TableInput: FC<PropsWithChildren<Props>> = ({ setWordList, table, s
     <div>
       <Title>Enter your table here:</Title>
       <TableHolderWrapper>
-        <div>
+        <FormWrapper>
           <TableHolder
             onInput={(e) => {
               setWordList(parseTable(e));
@@ -132,8 +145,8 @@ export const TableInput: FC<PropsWithChildren<Props>> = ({ setWordList, table, s
             {...props}
           />
 
-          <ButtonWrapper>{children}</ButtonWrapper>
-        </div>
+          {children}
+        </FormWrapper>
       </TableHolderWrapper>
     </div>
   );
