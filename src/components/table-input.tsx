@@ -1,5 +1,6 @@
-import { FC, FormEvent, useState } from 'react';
+import { FC, FormEvent } from 'react';
 import { styled } from '@linaria/react';
+import { Button } from './button';
 
 const Title = styled.h1`
   text-align: center;
@@ -12,6 +13,7 @@ const TableHolderWrapper = styled.div`
 
 const TableHolder = styled.div`
   overflow: auto;
+  display: inline-block;
 
   min-width: 500px;
   min-height: 500px;
@@ -38,49 +40,60 @@ const TableHolder = styled.div`
   }
 `;
 
-const WordListHolder = styled.div`
-  margin-top: 30px;
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
-type WordListItem = {
+export type WordListItem = {
   word: string;
   translation: string;
 };
 
-export const TableInput: FC = () => {
-  const [wordList, setWordList] = useState<WordListItem[] | null>();
+const parseTable = (e: FormEvent<HTMLDivElement>) => {
+  const target = e.target as HTMLDivElement;
 
-  const parseTable = (e: FormEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLDivElement;
+  const words: string[] = [];
+  const translations: string[] = [];
 
-    const words: string[] = [];
-    const translations: string[] = [];
-
-    target.querySelectorAll('td').forEach((td, i) => {
-      if (i % 2 === 0) {
-        words.push(td.innerText);
-      } else {
-        translations.push(td.innerText);
-      }
-    });
-
-    const result = words.map((word, i) => ({ word, translation: translations[i] }));
-
-    if (!result.length) {
-      setWordList(null);
+  target.querySelectorAll('td').forEach((td, i) => {
+    if (i % 2 === 0) {
+      words.push(td.innerText);
     } else {
-      setWordList(result);
+      translations.push(td.innerText);
     }
-  };
+  });
 
+  const result = words.map((word, i) => ({ word, translation: translations[i] }));
+
+  if (!result.length) {
+    return null;
+  }
+
+  return result;
+};
+
+type Props = {
+  setWordList: (value: WordListItem[] | null) => void;
+  startDisabled: boolean;
+  onStart: () => void;
+};
+
+export const TableInput: FC<Props> = ({ setWordList, onStart, startDisabled }) => {
   return (
     <div>
       <Title>Enter your table here:</Title>
       <TableHolderWrapper>
-        <TableHolder onInput={parseTable} contentEditable />
-      </TableHolderWrapper>
+        <div>
+          <TableHolder onInput={(e) => setWordList(parseTable(e))} contentEditable />
 
-      {wordList && <WordListHolder>{JSON.stringify(wordList, null, 2)}</WordListHolder>}
+          <ButtonWrapper>
+            <Button onClick={() => onStart()} disabled={startDisabled}>
+              Start
+            </Button>
+          </ButtonWrapper>
+        </div>
+      </TableHolderWrapper>
     </div>
   );
 };
