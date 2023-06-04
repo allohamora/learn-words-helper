@@ -6,6 +6,6 @@ import linaria from '@linaria/vite';
 export default defineConfig({
   plugins: [
     react(),
-    linaria(),
+    linaria()
   ],
 })
