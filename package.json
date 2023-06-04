@@ -65,5 +65,13 @@
     "*.{css,ts,tsx}": "stylelint --fix",
     "*.{js,json,yml,md}": "prettier --write",
     "*.{ts,tsx}": "eslint --fix"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allohamora/learn-words-helper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/allohamora/learn-words-helper/issues"
+  },
+  "homepage": "https://github.com/allohamora/learn-words-helper#readme"
 }
