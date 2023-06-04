@@ -85,7 +85,7 @@ const WORD_TRASH = /(\[.+?\])|(Am\.E\.)/gi;
 const MANY_SPLIT_SYMBOL = ',';
 
 const parseText = (text: string, trashRegexp: RegExp): ParsedText => {
-  const full = text.replace(trashRegexp, '').trim();
+  const full = text.replace(trashRegexp, '').trim().replace(/\s/gi, ' ');
   const items = full.split(MANY_SPLIT_SYMBOL).map((value) => value.trim());
 
   return {
