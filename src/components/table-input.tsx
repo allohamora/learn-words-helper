@@ -55,6 +55,9 @@ export type WordListItem = {
   translation: string;
 };
 
+const TRANSLATION_TRASH = /«|»/gi;
+const WORD_TRASH = /(\[.+?\])|(Am\.E\.)/gi;
+
 const parseTable = (e: FormEvent<HTMLDivElement>) => {
   const target = e.target as HTMLDivElement;
 
@@ -63,9 +66,9 @@ const parseTable = (e: FormEvent<HTMLDivElement>) => {
 
   target.querySelectorAll('td').forEach((td, i) => {
     if (i % 2 === 0) {
-      words.push(td.innerText);
+      words.push(td.innerText.replace(WORD_TRASH, '').trim());
     } else {
-      translations.push(td.innerText);
+      translations.push(td.innerText.replace(TRANSLATION_TRASH, '').trim());
     }
   });
 
