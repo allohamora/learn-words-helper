@@ -3,6 +3,7 @@ import { Title } from './title';
 import { Button } from './button';
 import { Input } from './input';
 import { styled } from '@linaria/react';
+import { Tooltip } from 'react-tooltip';
 
 const Form = styled.form`
   width: 400px;
@@ -64,7 +65,11 @@ export const Cards: FC<Props> = ({ items, onFinish }) => {
     <div>
       <Title>Enter the answer of that:</Title>
       <div>
-        <Title as="h3">{active.question}</Title>
+        <Title data-tooltip-id="question" data-tooltip-content={`"${active.answers.join('" or "')}"`} as="h3">
+          {active.question}
+        </Title>
+        <Tooltip id="question" />
+
         <Form
           onSubmit={(e) => {
             e.preventDefault();
