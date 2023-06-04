@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/allohamora/learn-words-helper/compare/1.5.0...1.6.0) (2023-06-04)
+
+### Features
+
+- add service-worker refresh ([94e3662](https://github.com/allohamora/learn-words-helper/commit/94e36624cca970dbf94337ca5ce4777675d30a66))
+
 ## [1.5.0](https://github.com/allohamora/learn-words-helper/compare/1.4.0...1.5.0) (2023-06-04)
 
 ### Features
