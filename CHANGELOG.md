@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/allohamora/learn-words-helper/compare/1.4.0...1.5.0) (2023-06-04)
+
+### Features
+
+- add counter ([007ce25](https://github.com/allohamora/learn-words-helper/commit/007ce25c5f115f17c34786fa18b1a0691db7cccb))
+
 ## [1.4.0](https://github.com/allohamora/learn-words-helper/compare/1.3.0...1.4.0) (2023-06-04)
 
 ### Features
