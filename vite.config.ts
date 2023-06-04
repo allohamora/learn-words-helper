@@ -18,6 +18,11 @@ export default defineConfig({
         short_name: 'learn words helper',
         description: 'learn words helper',
         orientation: 'any',
+        theme_color: '#ffffff',
+        background_color: '#ffffff',
+        display: 'standalone',
+        scope: '/',
+        start_url: '/',
         icons: [
           {
             src: '/favicon-16x16.png',
@@ -45,9 +50,6 @@ export default defineConfig({
             type: 'image/png',
           },
         ],
-        theme_color: '#ffffff',
-        background_color: '#ffffff',
-        display: 'standalone',
       },
     }),
   ],
