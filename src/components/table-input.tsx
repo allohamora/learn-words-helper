@@ -1,10 +1,7 @@
 import { FC, FormEvent } from 'react';
 import { styled } from '@linaria/react';
 import { Button } from './button';
-
-const Title = styled.h1`
-  text-align: center;
-`;
+import { Title } from './title';
 
 const TableHolderWrapper = styled.div`
   display: flex;
@@ -19,11 +16,19 @@ const TableHolder = styled.div`
   min-height: 500px;
   padding: 10px;
 
+  color: var(--input-text-color);
+
+  background-color: var(--input-background);
   border: 2px solid var(--border-color);
   border-radius: var(--border-radius);
 
+  div {
+    white-space: normal !important;
+    background-color: var(--input-background) !important;
+  }
+
   table td span {
-    color: var(--text-color) !important;
+    color: var(--input-text-color) !important;
   }
 
   table {
@@ -77,15 +82,32 @@ type Props = {
   setWordList: (value: WordListItem[] | null) => void;
   startDisabled: boolean;
   onStart: () => void;
+  table?: string;
+  setTable: (table: string) => void;
 };
 
-export const TableInput: FC<Props> = ({ setWordList, onStart, startDisabled }) => {
+export const TableInput: FC<Props> = ({ setWordList, onStart, startDisabled, table, setTable }) => {
+  const props: {
+    dangerouslySetInnerHTML?: { __html: string };
+  } = {};
+
+  if (table) {
+    props.dangerouslySetInnerHTML = { __html: table };
+  }
+
   return (
     <div>
       <Title>Enter your table here:</Title>
       <TableHolderWrapper>
         <div>
-          <TableHolder onInput={(e) => setWordList(parseTable(e))} contentEditable />
+          <TableHolder
+            onInput={(e) => {
+              setWordList(parseTable(e));
+              setTable((e.target as HTMLDivElement).innerHTML);
+            }}
+            contentEditable
+            {...props}
+          />
 
           <ButtonWrapper>
             <Button onClick={() => onStart()} disabled={startDisabled}>
