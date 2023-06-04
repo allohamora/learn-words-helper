@@ -4,6 +4,7 @@ import { Button } from './button';
 import { Input } from './input';
 import { styled } from '@linaria/react';
 import { Tooltip } from 'react-tooltip';
+import { media } from '../utils/media';
 
 const Form = styled.form`
   width: 400px;
@@ -14,7 +15,7 @@ const Form = styled.form`
     width: 100%;
   }
 
-  @media (width <= 600px) {
+  ${media.mobile} {
     width: 100%;
   }
 `;

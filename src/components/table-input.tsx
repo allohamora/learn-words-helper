@@ -1,6 +1,7 @@
 import { FC, FormEvent, PropsWithChildren } from 'react';
 import { styled } from '@linaria/react';
 import { Title } from './title';
+import { media } from '../utils/media';
 
 const TableHolderWrapper = styled.div`
   display: flex;
@@ -8,7 +9,7 @@ const TableHolderWrapper = styled.div`
 `;
 
 const FormWrapper = styled.div`
-  @media (width <= 500px) {
+  ${media.mobile} {
     width: 100%;
   }
 `;
@@ -50,7 +51,7 @@ const TableHolder = styled.div`
     outline: none;
   }
 
-  @media (width <= 500px) {
+  ${media.mobile} {
     width: 100%;
     min-width: 100%;
     min-height: 400px;
