@@ -33,6 +33,6 @@
       "hidden": true
     }
   ],
-  "commitUrlFormat": "<repository url>/commit/{{hash}}",
-  "compareUrlFormat": "<repository url>/compare/{{previousTag}}...{{currentTag}}"
+  "commitUrlFormat": "https://github.com/allohamora/learn-words-helper/commit/{{hash}}",
+  "compareUrlFormat": "https://github.com/allohamora/learn-words-helper/compare/{{previousTag}}...{{currentTag}}"
 }

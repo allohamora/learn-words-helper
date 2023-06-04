@@ -39,6 +39,8 @@
     "react/require-default-props": "off",
     "react/no-array-index-key": "warn",
     "import/order": "off",
+    "no-plusplus": "warn",
+    "consistent-return": "warn",
     "beautiful-sort/import": [
       "error",
       {
