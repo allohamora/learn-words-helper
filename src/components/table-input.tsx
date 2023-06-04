@@ -2,16 +2,40 @@ import { FC, FormEvent, useState } from 'react';
 import { styled } from '@linaria/react';
 
 const Title = styled.h1`
-  color: black;
+  text-align: center;
 `;
 
 const TableHolderWrapper = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 const TableHolder = styled.div`
-  min-width: 50%;
-  border: 2px solid black;
+  overflow: auto;
+
+  min-width: 500px;
+  min-height: 500px;
+  padding: 10px;
+
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+
+  table td span {
+    color: var(--text-color) !important;
+  }
+
+  table {
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--border-radius) !important;
+  }
+
+  table td {
+    border-color: var(--border-color) !important;
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const WordListHolder = styled.div`
@@ -54,8 +78,9 @@ export const TableInput: FC = () => {
       <Title>Enter your table here:</Title>
       <TableHolderWrapper>
         <TableHolder onInput={parseTable} contentEditable />
-        {wordList && <WordListHolder>{JSON.stringify(wordList, null, 2)}</WordListHolder>}
       </TableHolderWrapper>
+
+      {wordList && <WordListHolder>{JSON.stringify(wordList, null, 2)}</WordListHolder>}
     </div>
   );
 };
