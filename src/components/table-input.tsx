@@ -1,4 +1,5 @@
-import { FC, FormEvent, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react';
+import ContentEditable from 'react-contenteditable';
 import { styled } from '@linaria/react';
 import { Title } from './title';
 import { media } from '../utils/media';
@@ -14,7 +15,7 @@ const FormWrapper = styled.div`
   }
 `;
 
-const TableHolder = styled.div`
+const TableHolder = styled(ContentEditable)`
   overflow: auto;
   display: inline-block;
 
@@ -85,7 +86,7 @@ const WORD_TRASH = /(\[.+?\])|(Am\.E\.)/gi;
 const MANY_SPLIT_SYMBOL = ',';
 
 const parseText = (text: string, trashRegexp: RegExp): ParsedText => {
-  const full = text.replace(trashRegexp, '').trim();
+  const full = text.replace(trashRegexp, '').trim().replace(/\s/gi, ' ');
   const items = full.split(MANY_SPLIT_SYMBOL).map((value) => value.trim());
 
   return {
@@ -94,9 +95,7 @@ const parseText = (text: string, trashRegexp: RegExp): ParsedText => {
   };
 };
 
-const parseTable = (e: FormEvent<HTMLDivElement>) => {
-  const target = e.target as HTMLDivElement;
-
+const parseTable = (target: HTMLDivElement) => {
   const words: ParsedText[] = [];
   const translations: ParsedText[] = [];
 
@@ -120,31 +119,22 @@ const parseTable = (e: FormEvent<HTMLDivElement>) => {
 type Props = {
   setWordList: (value: WordListItem[] | null) => void;
 
-  table?: string;
+  table: string;
   setTable: (table: string) => void;
 };
 
 export const TableInput: FC<PropsWithChildren<Props>> = ({ setWordList, table, setTable, children }) => {
-  const props: {
-    dangerouslySetInnerHTML?: { __html: string };
-  } = {};
-
-  if (table) {
-    props.dangerouslySetInnerHTML = { __html: table };
-  }
-
   return (
     <div>
       <Title>Enter your table here:</Title>
       <TableHolderWrapper>
         <FormWrapper>
           <TableHolder
-            onInput={(e) => {
-              setWordList(parseTable(e));
-              setTable((e.target as HTMLDivElement).innerHTML);
+            html={table}
+            onChange={(e) => {
+              setWordList(parseTable(e.nativeEvent.target as HTMLDivElement));
+              setTable(e.target.value);
             }}
-            contentEditable
-            {...props}
           />
 
           {children}

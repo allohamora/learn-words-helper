@@ -55,7 +55,7 @@ const sortItems = (items: CardItem[], sort: AppSort) => {
 };
 
 export const App: FC = () => {
-  const [table, setTable] = useState<string>();
+  const [table, setTable] = useState<string>('');
   const [wordList, setWordList] = useState<WordListItem[] | null>(null);
   const [cardItems, setCardItems] = useState<CardItem[]>();
   const [status, setStatus] = useState(AppStatus.WAITING);
