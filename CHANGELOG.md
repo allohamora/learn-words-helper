@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/allohamora/learn-words-helper/compare/1.2.0...1.3.0) (2023-06-04)
+
+### Features
+
+- add wrong spaces handling ([16e9d4f](https://github.com/allohamora/learn-words-helper/commit/16e9d4f5eca7b3bd7d1f7ce835c85d5ab3ae81ab))
+
+### Bug Fixes
+
+- fix incorrect table editing ([07e672c](https://github.com/allohamora/learn-words-helper/commit/07e672c6cb2318010a80cfe3c5f6c76e2f137df1))
+
 ## [1.2.0](https://github.com/allohamora/learn-words-helper/compare/1.1.0...1.2.0) (2023-06-04)
 
 ### Features
