@@ -22,7 +22,7 @@ const SubmitWrapper = styled.div`
 
 export type CardItem = {
   question: string;
-  answer: string;
+  answers: string[];
 };
 
 type Props = {
@@ -40,12 +40,12 @@ export const Cards: FC<Props> = ({ items, onFinish }) => {
   const active = items[activeIdx] as CardItem;
 
   const onSubmit = () => {
-    if (active.answer !== answer) {
+    if (!active.answers.includes(answer)) {
       const newWrongAnswers = wrongAnswers + 1;
       setWrongAnswers(newWrongAnswers);
 
       if (newWrongAnswers >= MAX_WRONG_ANSWERS) {
-        return alert(`wrong answer, the right answer is "${active.answer}"`);
+        return alert(`wrong answer, the right answer is "${active.answers.join('" or "')}"`);
       }
 
       return alert(`wrong answer`);

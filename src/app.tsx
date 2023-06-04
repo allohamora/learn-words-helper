@@ -21,13 +21,28 @@ const enum AppTarget {
   Translations = 'Translations',
 }
 
-const toCardItems = (wordList: WordListItem[], target: AppTarget): CardItem[] => {
-  return wordList.map(({ word, translation }) => {
-    if (target === AppTarget.Words) {
-      return { question: translation, answer: word };
+const enum AppMode {
+  One = 'One',
+  All = 'All',
+}
+
+const filteredByTarget = ({ word, translation }: WordListItem, target: AppTarget) => {
+  if (target === AppTarget.Words) {
+    return { question: translation, answer: word };
+  }
+
+  return { question: word, answer: translation };
+};
+
+const toCardItems = (wordList: WordListItem[], target: AppTarget, mode: AppMode): CardItem[] => {
+  return wordList.map((wordListItem) => {
+    const filtered = filteredByTarget(wordListItem, target);
+
+    if (mode === AppMode.All) {
+      return { question: filtered.question.full, answers: [filtered.answer.full] };
     }
 
-    return { question: word, answer: translation };
+    return { question: filtered.question.full, answers: filtered.answer.items };
   });
 };
 
@@ -44,15 +59,17 @@ export const App: FC = () => {
   const [wordList, setWordList] = useState<WordListItem[] | null>(null);
   const [cardItems, setCardItems] = useState<CardItem[]>();
   const [status, setStatus] = useState(AppStatus.WAITING);
+
   const [sort, setSort] = useState(AppSort.Default);
   const [target, setTarget] = useState(AppTarget.Words);
+  const [mode, setMode] = useState(AppMode.One);
 
   const onFinish = () => {
     setStatus(AppStatus.WAITING);
   };
 
   const onStart = () => {
-    setCardItems(sortItems(toCardItems(wordList as WordListItem[], target), sort));
+    setCardItems(sortItems(toCardItems(wordList as WordListItem[], target, mode), sort));
     setStatus(AppStatus.STARTED);
   };
 
@@ -68,6 +85,12 @@ export const App: FC = () => {
     setTarget(nextTarget);
   };
 
+  const toggleMode = () => {
+    const nextMode = mode === AppMode.All ? AppMode.One : AppMode.All;
+
+    setMode(nextMode);
+  };
+
   return (
     <Container as="main">
       {status === AppStatus.WAITING && (
@@ -75,6 +98,7 @@ export const App: FC = () => {
           <ActionsWrapper>
             <Button onClick={toggleSort}>Sort: {sort.toLowerCase()}</Button>
             <Button onClick={toggleTarget}>Target: {target.toLowerCase()}</Button>
+            <Button onClick={toggleMode}>Mode: {mode.toLowerCase()}</Button>
           </ActionsWrapper>
 
           <Button onClick={onStart} disabled={!wordList}>

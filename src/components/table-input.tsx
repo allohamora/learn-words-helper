@@ -55,25 +55,41 @@ export const ActionsWrapper = styled.div`
   }
 `;
 
+export type ParsedText = {
+  full: string;
+  items: string[];
+};
+
 export type WordListItem = {
-  word: string;
-  translation: string;
+  word: ParsedText;
+  translation: ParsedText;
 };
 
 const TRANSLATION_TRASH = /«|»/gi;
 const WORD_TRASH = /(\[.+?\])|(Am\.E\.)/gi;
+const MANY_SPLIT_SYMBOL = ',';
+
+const parseText = (text: string, trashRegexp: RegExp): ParsedText => {
+  const full = text.replace(trashRegexp, '').trim();
+  const items = full.split(MANY_SPLIT_SYMBOL).map((value) => value.trim());
+
+  return {
+    full,
+    items,
+  };
+};
 
 const parseTable = (e: FormEvent<HTMLDivElement>) => {
   const target = e.target as HTMLDivElement;
 
-  const words: string[] = [];
-  const translations: string[] = [];
+  const words: ParsedText[] = [];
+  const translations: ParsedText[] = [];
 
   target.querySelectorAll('td').forEach((td, i) => {
     if (i % 2 === 0) {
-      words.push(td.innerText.replace(WORD_TRASH, '').trim());
+      words.push(parseText(td.innerText, WORD_TRASH));
     } else {
-      translations.push(td.innerText.replace(TRANSLATION_TRASH, '').trim());
+      translations.push(parseText(td.innerText, TRANSLATION_TRASH));
     }
   });
 
